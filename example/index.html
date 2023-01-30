@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div>测试</div>
+    <div id="app"></div>
+  </body>
+  <script type="module">
+    import MasquesRequest from '../lib/masquesRequest.js';
+    const reuqest = new MasquesRequest();
+    Vue.use(reuqest);
+    // Vue.use(new handlyDirectives());
+    let app = new Vue({
+      el: '#app',
+      mounted() {
+        console.log(this.$http);
+        this.$http({
+          method: 'get',
+          url: './mock.json',
+          data: { hello: this.a },
+        }).then((res) => {
+          console.log(res);
+        });
+      },
+      data: {
+        a: 12,
+      },
+    });
+  </script>
+</html>
