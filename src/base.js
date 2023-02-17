@@ -11,17 +11,24 @@ export default class BaseStorage{
             return this.storageHandler.get(key)
         }
         const optionsInfo=getStorageOptions(this.storageHandler.get(key))
+        console.log(optionsInfo)
         if(this.handlerGetMethods){
             return handlerGetMethods(optionsInfo)
         }
         return optionsInfo&&optionsInfo.value
     }
     set(storageObject,isRow=false){
-        if(this.handlerSetMethods&&!isRow){
-                this.handlerSetMethods(storageObject)
+        Object.keys(storageObject).forEach(key=>{
+            if(isRow){
+                this.storageHandler.set(key,JSON.stringify(storageObject[key]))
+                return
+            }
+            const decorativeObject=Object.create({})
+            decorativeObject.value=storageObject[key]
+            if(this.handlerSetMethods){
+                this.handlerSetMethods(decorativeObject)
         }
-        Object.keys(key=>{
-            this.storageHandler.set(key,storageObject[key])
+            this.storageHandler.set(key,JSON.stringify(decorativeObject))
         })
     }
     delete(key){

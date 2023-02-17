@@ -5,9 +5,15 @@ export default class Local extends BaseStorage{
     }
     creatStorageHandler(){
         return {
-            get:localStorage.getItem,
-            set:localStorage.setItem,
-            delete:localStorage.removeItem,
+            get(key){
+                return localStorage.getItem(key)
+            },
+            set(key,value){
+                localStorage.setItem(key,value)
+            },
+            delete(key){
+                localStorage.removeItem(key)
+            }
         }
     }
 }

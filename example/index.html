@@ -12,25 +12,9 @@
     <div id="app"></div>
   </body>
   <script type="module">
-    import MasquesRequest from '../lib/masquesRequest.js';
-    const reuqest = new MasquesRequest();
-    Vue.use(reuqest);
-    // Vue.use(new handlyDirectives());
-    let app = new Vue({
-      el: '#app',
-      mounted() {
-        console.log(this.$http);
-        this.$http({
-          method: 'get',
-          url: './mock.json',
-          data: { hello: this.a },
-        }).then((res) => {
-          console.log(res);
-        });
-      },
-      data: {
-        a: 12,
-      },
-    });
+    import useMasquesStorage from '../lib/masquesStorage.js';
+    const local=useMasquesStorage()
+    local.set({hello:12})
+    console.log(local.get('hello'))
   </script>
 </html>
