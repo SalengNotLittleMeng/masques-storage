@@ -14,6 +14,12 @@ export default class Local extends BaseStorage{
             },
             delete(key){
                 localStorage.removeItem(key)
+            },
+            has(key){
+                return localStorage.has(key)
+            },
+            clear(){
+                localStorage.clear()
             }
         }
     }

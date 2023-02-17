@@ -33,4 +33,10 @@ export default class BaseStorage{
     delete(key){
         this.storageHandler.delete(key)
     }
+    has(key){
+        return this.storageHandler.has(key)
+    }
+    clear(){
+        this.storageHandler.clear()
+    }
 }

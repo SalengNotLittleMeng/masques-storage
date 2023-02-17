@@ -13,6 +13,12 @@ export default class Session extends BaseStorage{
             },
             delete(key){
                 sessionStorage.removeItem(key)
+            },
+            has(key){
+                return sessionStorage.has(key)
+            },
+            clear(){
+                sessionStorage.clear()
             }
         }
     }
