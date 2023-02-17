@@ -5,9 +5,15 @@ export default class Session extends BaseStorage{
     }
     creatStorageHandler(){
         return {
-            get:sessionStorage.getItem,
-            set:sessionStorage.setItem,
-            delete:sessionStorage.removeItem,
+            get(key){
+                return sessionStorage.getItem(key)
+            },
+            set(key,value){
+                sessionStorage.setItem(key,value)
+            },
+            delete(key){
+                sessionStorage.removeItem(key)
+            }
         }
     }
 }
