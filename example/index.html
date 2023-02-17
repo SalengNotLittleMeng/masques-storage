@@ -14,7 +14,7 @@
   <script type="module">
     import useMasquesStorage from '../lib/masquesStorage.js';
     const local=useMasquesStorage()
-    local.set({hello:12})
+    local.set({hello:12},{encryp:true})
     console.log(local.get('hello'))
   </script>
 </html>
