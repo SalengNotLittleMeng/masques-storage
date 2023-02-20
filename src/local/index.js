@@ -21,11 +21,10 @@ export default class Local extends BaseStorage{
             },
             getAll(){
                 const len = localStorage.length;  
-                var arr = new Array(); // 定义数据集
+                var arr = new Array(); 
                 for(let i = 0; i < len; i++) {
                     const getKey = localStorage.key(i);
                     const getVal = localStorage.getItem(getKey);
-                    // 放进数组
                     arr[i] = {
                         [getKey]: getVal,
                     }

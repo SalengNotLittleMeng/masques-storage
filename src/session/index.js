@@ -19,11 +19,10 @@ export default class Session extends BaseStorage{
             },
             getAll(){
                 const len = sessionStorage.length;  
-                var arr = new Array(); // 定义数据集
+                var arr = new Array(); 
                 for(let i = 0; i < len; i++) {
                     const getKey = sessionStorage.key(i);
                     const getVal = sessionStorage.getItem(getKey);
-                    // 放进数组
                     arr[i] = {
                         [getKey]: getVal,
                     }
