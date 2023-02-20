@@ -22,6 +22,9 @@ export default defineConfig({
       output: {
         dir: 'lib',
         name: 'MasquesStorage',
+        globals: {
+          vue: 'Vue',
+        },
       },
     },
   },

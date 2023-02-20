@@ -1,3 +1,4 @@
+import {ref, watchEffect} from 'vue';
 import Session from './session/index'
 import Local from './local/index'
 import Cache from './cache/index'
@@ -16,4 +17,25 @@ export default function useMasquesStorage(type,options={}){
         default:
             return new Local(options)
     }
+}
+//响应式hook
+const storage=null
+export function useStorage(key,value={},options){
+    const type=options.type || 'local'
+    if(type=='session'){
+        storage=new Session(options)
+    }else{
+        if(!storage||options.reload){
+            void 0
+        }else{
+            storage=new Local(options)
+        }
+    }
+    const localData = ref(storage.get(key)|| value);
+    watchEffect(() => {
+        storage.set({[key]:value})
+    })
+
+    return localData;
+
 }
