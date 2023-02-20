@@ -2,12 +2,13 @@ import {getStorageOptions} from './util'
 export default class BaseStorage{
     constructor(options={}){
         this.storageHandler=this.creatStorageHandler(options)
+        this.nameSpace=this.options.nameSpace || ''
     }
     creatStorageHandler(options){
         return options.handler
     }
-    get(key,isRow=false){
-        if(isRow){
+    get(key,options={}){
+        if(options.isRow){
             return this.storageHandler.get(key)
         }
         const optionsInfo=getStorageOptions(this.storageHandler.get(key))
@@ -22,6 +23,8 @@ export default class BaseStorage{
                 this.storageHandler.set(key,JSON.stringify(storageObject[key]))
                 return
             }
+            const nameSpace=options.nameSpace || this.nameSpace
+            key=`${nameSpace}/${key}`
             const decorativeObject=Object.create({})
             decorativeObject.value=storageObject[key]
             if(this.handlerSetMethods){
@@ -36,7 +39,18 @@ export default class BaseStorage{
     has(key){
         return this.storageHandler.has(key)
     }
-    clear(){
-        this.storageHandler.clear()
+    getAll(){
+        return this.storageHandler.getAll()
+    }
+    clear(options){
+        const nameSpace=options.nameSpace || this.nameSpace
+        if(!nameSpace){this.storageHandler.clear()}
+        this.getAll().forEach(item=>{
+            const key=Object.keys(item)[0]
+            const nameSpacePrefix=key.split('/')[0]
+            if(nameSpace==nameSpacePrefix){
+                this.delete(key)
+            }
+        })
     }
 }
