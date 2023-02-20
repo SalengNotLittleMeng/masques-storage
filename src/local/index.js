@@ -2,8 +2,8 @@ import BaseStorage from '../base'
 import {checkTimeoutForGetter, setTimeoutForSetter} from './setTimeout'
 import {encrypForSetter,decryptForGetter} from './encryp'
 export default class Local extends BaseStorage{
-    constructor(){
-        super()
+    constructor(options){
+        super(options)
     }
     creatStorageHandler(){
         return {

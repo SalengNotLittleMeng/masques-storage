@@ -2,7 +2,7 @@ import {getStorageOptions} from './util'
 export default class BaseStorage{
     constructor(options={}){
         this.storageHandler=this.creatStorageHandler(options)
-        this.nameSpace=this.options.nameSpace || ''
+        this.nameSpace=options.nameSpace || ''
     }
     creatStorageHandler(options){
         return options.handler

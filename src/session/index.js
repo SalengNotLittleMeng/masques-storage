@@ -1,7 +1,7 @@
 import BaseStorage from '../base'
 export default class Session extends BaseStorage{
-    constructor(){
-        super()
+    constructor(options){
+        super(options)
     }
     creatStorageHandler(){
         return {

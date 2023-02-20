@@ -12,9 +12,8 @@
     <div id="app"></div>
   </body>
   <script type="module">
-    import useMasquesStorage from '../lib/masquesStorage.js';
-    const local=useMasquesStorage()
-    local.set({hello:12},{encryp:true})
-    console.log(local.get('hello'))
+    import {useStorageRow }from '../lib/masquesStorage.js';
+    let val=useStorageRow('a',123)
+    localStorage.setItem("b",3455)
   </script>
 </html>
