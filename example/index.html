@@ -13,7 +13,7 @@
   </body>
   <script type="module">
     import {useStorageRow } from '../lib/masquesStorage.js';
-    let val=useStorageRow('a',123)
+    let val=useStorageRow('a',123,{row:true})
     val.value=23
     console.log( localStorage.getItem('a'))
   </script>

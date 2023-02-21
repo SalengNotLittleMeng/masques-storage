@@ -34,7 +34,7 @@ let storage=null
 let ProxyStorageObject={}
 const StorageSet=new Set()
 //将一个存储对象变为响应式
-export function useStorageRow(key,value={},options={}){
+export function useStorageRow(key,value={},options={row:true}){
     initStorageObserve(options)
     getStorage(options)
     //代理对象
@@ -57,7 +57,8 @@ export function useStorageRow(key,value={},options={}){
             }
             //如果是自身修改，不触发响应式
             if(!target[key]['self']){
-                storage.set({[key]:value})
+                options.row?localStorage.setItem(key,value):
+                    storage.set({[key]:value})
             }
             //重设值
             return Reflect.set(target[key], prototype, value);
