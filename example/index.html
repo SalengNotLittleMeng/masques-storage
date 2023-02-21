@@ -12,9 +12,18 @@
     <div id="app"></div>
   </body>
   <script type="module">
-    import {useStorageRow } from '../lib/masquesStorage.js';
-    let val=useStorageRow('a',123,{row:true})
-    val.value=23
-    console.log( localStorage.getItem('a'))
+    import  useMasquesStorage from '../lib/masquesStorage.js';
+    const storage= useMasquesStorage('local',{
+        //设置超时时间
+        timeout:100000,
+        //是否加密
+        isEncryped:true,
+        //命名空间
+        nameSpace:'main'
+    })
+    //以对象形式存储，可以存储多个值
+    storage.set({key:'hello-world'})
+    console.log(storage.get('key'))
+    console.log(storage.get('key',{isRow:true})) //获取原始值
   </script>
 </html>

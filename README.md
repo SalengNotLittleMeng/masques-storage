@@ -9,3 +9,24 @@ masques（基于Vue3的中后台解决方案）的整体功能集成模板：：
 项目 GitHub 地址：https://github.com/SalengNotLittleMeng/masques-storage
 
 ## 功能
+
+创建实例：
+
+```js
+
+    import  useMasquesStorage from 'masquesStorage';
+    const storage= useMasquesStorage('local',{
+        //设置超时时间
+        timeout:100000,
+        //是否加密
+        isEncryped:true,
+        //命名空间
+        nameSpace:'main'
+    })
+    //以对象形式存储，可以存储多个值
+    storage.set({key:value})
+    console.log(storgae.get('key'))
+    console.log(storage.get('key',{isRow:true})) //获取原始值
+```
+
+使用hook:
