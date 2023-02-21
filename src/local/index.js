@@ -37,11 +37,15 @@ export default class Local extends BaseStorage{
         }
     }
     handlerSetMethods(decorativeObject,options){
+        //修改添加超时功能
         setTimeoutForSetter(decorativeObject,options)
+        //添加加密功能
         encrypForSetter(decorativeObject,options)
     }
     handlerGetMethods(decorativeObject,key){
+        // 解密
         decryptForGetter(decorativeObject)
+        //检验超时并删除
         const value=decorativeObject.value
         if(checkTimeoutForGetter(decorativeObject)){
             this.storageHandler.delete(key)

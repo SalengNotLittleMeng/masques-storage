@@ -4,6 +4,8 @@ import Local from './local/index'
 import Cache from './cache/index'
 import Encryp from './encryp/index'
 import Observe from './observe/index'
+import BaseStorage  from './base'
+
 //根据不同的选项创建不同的对象
 export default function useMasquesStorage(type,options={}){
     switch(type){
