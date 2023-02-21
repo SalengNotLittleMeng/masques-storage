@@ -15,7 +15,10 @@
     import  useMasquesStorage from '../lib/masquesStorage.js';
     const storage= useMasquesStorage('local',{
         //设置超时时间
-        timeout:500,
+        timeout:{
+          time:500,
+          reset:true
+        },
         //是否加密
         isEncryped:true,
         //命名空间
@@ -27,5 +30,8 @@
     setTimeout(()=>{
       console.log(storage.get('key'))
     },1000)
+    setTimeout(()=>{
+      console.log(storage.get('key'))
+    },2000)
   </script>
 </html>

@@ -1,5 +1,5 @@
 import BaseStorage from '../base'
-import {checkTimeoutForGetter, setTimeoutForSetter} from './setTimeout'
+import {timeoutForGetter, setTimeoutForSetter} from './setTimeout'
 import {encrypForSetter,decryptForGetter} from './encryp'
 export default class Local extends BaseStorage{
     constructor(options){
@@ -45,12 +45,6 @@ export default class Local extends BaseStorage{
     handlerGetMethods(decorativeObject,key){
         // 解密
         decryptForGetter(decorativeObject)
-        //检验超时并删除
-        const value=decorativeObject.value
-        if(checkTimeoutForGetter(decorativeObject)){
-            this.storageHandler.delete(key)
-            return null
-        }
-        return value
+        return timeoutForGetter(decorativeObject,key)
     }
 }
