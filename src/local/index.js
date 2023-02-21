@@ -49,6 +49,7 @@ export default class Local extends BaseStorage{
         const value=decorativeObject.value
         if(checkTimeoutForGetter(decorativeObject)){
             this.storageHandler.delete(key)
+            return null
         }
         return value
     }
