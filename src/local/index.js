@@ -45,6 +45,6 @@ export default class Local extends BaseStorage{
     handlerGetMethods(decorativeObject,key){
         // 解密
         decryptForGetter(decorativeObject)
-        return timeoutForGetter(decorativeObject,key)
+        return timeoutForGetter(decorativeObject,key,this)
     }
 }

@@ -26,10 +26,10 @@
     })
     //以对象形式存储，可以存储多个值
     storage.set({key:'hello-world'})
-    console.log(storage.get('key'))
     setTimeout(()=>{
       console.log(storage.get('key'))
-    },1000)
+    },400)
+    
     setTimeout(()=>{
       console.log(storage.get('key'))
     },2000)

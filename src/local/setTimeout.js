@@ -5,24 +5,24 @@ export function setTimeoutForSetter(decorativeObject,options){
         }else{
             if(typeof options.timeout=='object'){
                 decorativeObject.timeout=new Date().getTime()+(options.timeout.time || 0)
+                decorativeObject.timeoutRow=options.timeout.time || 0
                 decorativeObject.resetTimeout=true
             }else if(typeof options.timeout=='number'){
                 decorativeObject.timeout=new Date().getTime()+(options.timeout || 0)
             }else{
                 throw new TypeError('timeout should be a number or object')
             }
-            decorativeObject.timeout=new Date().getTime()+(options.timeout || 0)
         }
 }
-export function timeoutForGetter(decorativeObject,key){
+export function timeoutForGetter(decorativeObject,key,vm){
         //检验超时并删除
         const {value,timeout,resetTimeout=false}=decorativeObject
         if(checkTimeout(decorativeObject)){
-            this.storageHandler.delete(key)
+            vm.storageHandler.delete(key)
             return null
         }else{
             if(resetTimeout){
-                decorativeObject.timeout=new Date().getTime()+timeout
+                decorativeObject.timeout=new Date().getTime()+decorativeObject['timeoutRow']
                 localStorage.setItem(key,JSON.stringify(decorativeObject))
             }
         }
