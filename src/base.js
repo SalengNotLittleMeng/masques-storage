@@ -6,37 +6,45 @@ export default class BaseStorage{
         this.storageHandler=this.creatStorageHandler(options)
         //命名空间
         this.nameSpace=options.nameSpace || ''
+        this.options=options
     }
     creatStorageHandler(options){
         return options.handler
     }
     //修饰get的存储方法
     get(key,options={}){
+        // 根据nameSpace修改key
+        if(key.split('/').length==1){
+            key=this.nameSpace?this.nameSpace+'/'+key:key
+        }
         if(options.isRow){
             return this.storageHandler.get(key)
         }
         //获取配置
         const optionsInfo=getStorageOptions(this.storageHandler.get(key))
         //向下提供处理存储信息的接口
-        if(this.handlerGetMethods){
+        if(optionsInfo&&this.handlerGetMethods){
             return this.handlerGetMethods(optionsInfo,key)
         }
         return optionsInfo&&optionsInfo.value
     }
     //修饰set的存储方法
     set(storageObject,options={}){
+        //合并配置
+        options=Object.assign(this.options,options)
         //遍历对象
         Object.keys(storageObject).forEach(key=>{
             if(options.isRow){
                 this.storageHandler.set(key,JSON.stringify(storageObject[key]))
                 return
             }
+            const RowKey=key
             //添加命名空间
             const nameSpace=options.nameSpace || this.nameSpace
             key=`${nameSpace?nameSpace+'/':''}${key}`
             //创建修饰信息对象
             const decorativeObject=Object.create({})
-            decorativeObject.value=storageObject[key]
+            decorativeObject.value=storageObject[RowKey]
             //向下提供修改配置的接口
             if(this.handlerSetMethods){
                 this.handlerSetMethods(decorativeObject,options)
