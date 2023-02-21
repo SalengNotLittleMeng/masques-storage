@@ -5,6 +5,7 @@ export default class Observe{
     constructor(options={}){
         //确认观测的对象
         this.storageType=this.ensureObserveType(options)
+        this.options=options.eventOptions || {}
         this.reWriteStorageMethods()
     }
     //重写存储的方法
@@ -18,11 +19,12 @@ export default class Observe{
                 :{
                     type:method,
                     key,
-                    value
+                    value,
+                    options:that.options
                 }
                 }))
                 //将this跟存储对象绑定调用
-                this.call(that.storageType, key, value);
+            return this.call(that.storageType, key, value);
             }).bind(Storage.prototype[method]);
         })
     }

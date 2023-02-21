@@ -19,29 +19,51 @@ export default function useMasquesStorage(type,options={}){
             return new Local(options)
     }
 }
-export function initStorageObserve(){
-        return new Observe()
+//创建响应式存储，会产生一个名叫store的事件，每次操作存储时触发
+let observe=null
+export function initStorageObserve(options){
+        if(observe){
+            return observe
+        }else{
+            return new Observe(options)
+        }
 }
 //响应式hook
 let storage=null
-var ProxyStorageObject={}
+let ProxyStorageObject={}
+const StorageSet=new Set()
 export function useStorageRow(key,value={},options={}){
-    initStorageObserve()
+    initStorageObserve(options)
     getStorage(options)
     ProxyStorageObject[key]={
-        key,value
+        key,value,self:false
     }
+    StorageSet.add(key)
     let ref=new Proxy(ProxyStorageObject,{
         get(target,prototype){
             return target[key][prototype]
         },
         set(target,prototype,value){
-            storage.set({key:value})
+            //修改的不是value则直接修改
+            if(prototype!=='value'){
+                return Reflect.set(target[key], prototype, value);
+            }
+            //如果是自身修改，不触发响应式
+            if(!target[key]['self']){
+                storage.set({[key]:value})
+            }
+            //重设值
             return Reflect.set(target[key], prototype, value);
         }
     })
-    window.addEventListener('storage',(e)=>{
-        console.log(e)
+    window.addEventListener('store',(event)=>{
+        const {detail:{key,value,type}}=event
+        if(type=='setItem'&&StorageSet.has(key)){
+            //注意这里需要暂时锁死响应式，否则会造成递归爆栈
+            ref.self=true
+            ref.value=value
+            ref.self=false
+        }
     })
     return ref
 }

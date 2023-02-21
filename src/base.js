@@ -24,7 +24,7 @@ export default class BaseStorage{
                 return
             }
             const nameSpace=options.nameSpace || this.nameSpace
-            key=`${nameSpace}/${key}`
+            key=`${nameSpace?nameSpace+'/':''}${key}`
             const decorativeObject=Object.create({})
             decorativeObject.value=storageObject[key]
             if(this.handlerSetMethods){
