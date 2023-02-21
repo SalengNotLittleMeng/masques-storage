@@ -13,6 +13,9 @@
   </body>
   <script type="module">
     import {useStorageRow }from '../lib/masquesStorage.js';
+    window.addEventListener('store',(e)=>{
+        console.log(e)
+    })
     let val=useStorageRow('a',123)
     localStorage.setItem("b",3455)
   </script>
