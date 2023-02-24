@@ -77,16 +77,16 @@ export function useStorageRow(key,value={},options={row:true}){
     })
     return ref
 }
-// export function useStorage(key,value={},options={}){
-//     getStorage(options)
-//     const localData = ref(storage.get(key)|| value);
-//     watchEffect(() => {
-//         storage.set({[key]:value})
-//     })
+export function useStorage(key,value={},options={}){
+    getStorage(options)
+    const localData = ref(storage.get(key)|| value);
+    watchEffect(() => {
+        storage.set({[key]:value})
+    })
 
-//     return localData;
+    return localData;
 
-// }
+}
 //获取使用的存储对象
 function getStorage(options={}){
     const type=options.type || 'local'
